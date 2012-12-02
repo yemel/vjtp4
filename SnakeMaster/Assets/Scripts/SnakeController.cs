@@ -38,6 +38,8 @@ public class SnakeController : MonoBehaviour {
 			transform.Translate(new Vector3(0,-1,0) * 3 * currentDirection);
 			currentDirection *= -1;
 		}
+		
+		CheckScreenBoundaries(transform.position);
 	}
 	
 	private void SaveCurrentPosition(Vector3 position){
@@ -55,4 +57,30 @@ public class SnakeController : MonoBehaviour {
        return bodyController;
     }
 	
+	void CheckScreenBoundaries(Vector3 pos){
+		float cameraSize = (float) Camera.main.camera.orthographicSize;
+		if(pos.y < -cameraSize || pos.y > cameraSize || 
+		   pos.x < -cameraSize || pos.x > cameraSize) ResetLevel();
+	}
+	
+	void OnTriggerEnter (Collider other) {
+    	tag = other.gameObject.tag;
+		switch(tag){
+		case "Star":
+			Destroy(other.gameObject);
+			print ("hey star!"); break;
+		
+		case "Wall":
+			ResetLevel();
+			print ("hey wall!"); break;
+		
+		case "End":
+			ResetLevel();
+			print ("hey finish!!"); break;
+		}
+	}
+	
+	void ResetLevel(){
+		Application.LoadLevel(Application.loadedLevel);
+	}
 }

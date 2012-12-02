@@ -1,8 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="../../tp3/HighAndDangerous/Assets/Scripts/MenuGUI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\FinishScript.cs">
     <Files>
-      <File FileName="../../tp3/HighAndDangerous/Assets/Scripts/MenuGUI.cs" Line="16" Column="1" />
+      <File FileName="Assets\Scripts\SnakeController.cs" Line="57" Column="30" />
+      <File FileName="Assets\Scripts\FinishScript.cs" Line="8" Column="37" />
+      <File FileName="Assets\Scripts\StarScript.cs" Line="5" Column="21" />
+      <File FileName="Assets\Scripts\BaseScript.cs" Line="11" Column="43" />
+      <File FileName="Assets\Scripts\WallScript.cs" Line="5" Column="21" />
+      <File FileName="..\..\idv2\Asterix\Assets\Scripts\ScreenBoundaryConstraint.cs" Line="13" Column="57" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
