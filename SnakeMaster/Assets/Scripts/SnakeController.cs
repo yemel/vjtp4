@@ -77,6 +77,10 @@ public class SnakeController : MonoBehaviour {
 		case "End":
 			ResetLevel();
 			print ("hey finish!!"); break;
+			
+		case "Shuriken":
+			ResetLevel();
+			print ("hey shuriken"); break;
 		}
 	}
 	
