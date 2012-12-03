@@ -4,6 +4,7 @@ using System.Collections;
 public class ShurikenScript : BaseScript {
 	protected override string GetTag(){ return "Shuriken"; }
 	
+	public int direction = 1;
 	public float xRange = 3;
 	public float yRange = 0;
 	
@@ -11,8 +12,8 @@ public class ShurikenScript : BaseScript {
 	void FixedUpdate () {
 		transform.Rotate(new Vector3(0,5,0));
 		
-		float x = GetMove(xRange);
-		float y = GetMove(yRange);
+		float x = GetMove(xRange) * direction;
+		float y = GetMove(yRange) * direction;
 		
 		transform.position += new Vector3(x, y, 0) * 0.01f;
 	}
