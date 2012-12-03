@@ -15,7 +15,6 @@ public class ShurikenScript : BaseScript {
 		float y = GetMove(yRange);
 		
 		transform.position += new Vector3(x, y, 0) * 0.01f;
-		//transform.position += 0.1;
 	}
 	
 	float GetMove(float range){
