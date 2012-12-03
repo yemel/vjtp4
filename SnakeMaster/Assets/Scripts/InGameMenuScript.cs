@@ -4,7 +4,7 @@ using System.Collections;
 public class InGameMenuScript : MonoBehaviour {
 	
 	public Font font;
-	public bool isActive = false;
+	public bool isActive = true;
 	
 	void Update(){
 		if(Input.GetKeyUp(KeyCode.P)) isActive = !isActive;
@@ -21,7 +21,6 @@ public class InGameMenuScript : MonoBehaviour {
 		style.normal.textColor = color;
 		style.hover.textColor = Color.green;
 		style.active.textColor = Color.red;
-
 		
 	    Texture2D tex = new Texture2D(2, 2);
 	    Color[] colors = new Color[4];
@@ -36,20 +35,26 @@ public class InGameMenuScript : MonoBehaviour {
 	
 	private void setMenu() {
 		var style = getSubtitleStyle(Color.yellow);
-		int left = (Screen.width/2)-170;
-		int top = 300;
+		int left = (Screen.width/2)-130;
+		int top = (Screen.height/2)-80;
 		int menumargin = 50;
-
-		if(GUI.Button(new Rect(left, top, 340, 40), "Resume", style)) {
+		
+		GUI.Box(new Rect(left-10, top-20, 280, 180), "");
+		
+		if(GUI.Button(new Rect(left, top, 260, 40), "Resume", style)) {
 			isActive = false;
 		}
 		
-		if(GUI.Button(new Rect(left, top+menumargin, 340, 40), "Levels menu", style)) {
+		if(GUI.Button(new Rect(left, top+menumargin, 260, 40), "Levels menu", style)) {
 			Application.LoadLevel(2);
 		}
 
-		if(GUI.Button(new Rect(left, top+menumargin*2, 340, 40), "Quit", style)) {
+		if(GUI.Button(new Rect(left, top+menumargin*2, 260, 40), "Quit", style)) {
 			Application.Quit();
 		}		
+	}
+	
+	public bool menuIsActive() {
+		return isActive;
 	}
 }

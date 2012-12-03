@@ -4,6 +4,7 @@ using System.Collections;
 public class LevelsMenuManagerScript : MonoBehaviour {
 
 	public Font font;
+	public Texture starTexture;
 	
 	void Update(){
 		if(Input.GetButton("Jump")) Application.LoadLevel(1);
@@ -41,8 +42,10 @@ public class LevelsMenuManagerScript : MonoBehaviour {
 				menuTop += topMargin;
 				leftCounter = 1;
 			}
-
-			if(GUI.Button(new Rect(menuLeft, menuTop, 150, 180), "Level " + (i+1))) {
+			
+			GUIContent content = new GUIContent("Level " + (i+1), starTexture);
+				
+			if(GUI.Button(new Rect(menuLeft, menuTop, 150, 180), content)) {
 			//	Application.LoadLevel(1);
 			}
 		}
