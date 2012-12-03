@@ -57,10 +57,11 @@ public class SnakeController : MonoBehaviour {
        return bodyController;
     }
 	
+	int outOfScreen = 0;
 	void CheckScreenBoundaries(Vector3 pos){
-		float cameraSize = (float) Camera.main.camera.orthographicSize;
-		if(pos.y < -cameraSize || pos.y > cameraSize || 
-		   pos.x < -cameraSize || pos.x > cameraSize) ResetLevel();
+		if(!renderer.isVisible){
+			if(outOfScreen++ > 5) ResetLevel();
+		}
 	}
 	
 	void OnTriggerEnter (Collider other) {
@@ -86,5 +87,14 @@ public class SnakeController : MonoBehaviour {
 	
 	void ResetLevel(){
 		Application.LoadLevel(Application.loadedLevel);
+	}
+	
+	public Rect BoundsToScreenRect(Bounds bounds){
+	    // Get mesh origin and farthest extent (this works best with simple convex meshes)
+	    Vector3 origin = Camera.main.WorldToScreenPoint(new Vector3(bounds.min.x, bounds.max.y, 0f));
+	    Vector3 extent = Camera.main.WorldToScreenPoint(new Vector3(bounds.max.x, bounds.min.y, 0f));
+	
+	    // Create rect in screen space and return - does not account for camera perspective
+	    return new Rect(origin.x, Screen.height - origin.y, extent.x - origin.x, origin.y - extent.y);
 	}
 }
