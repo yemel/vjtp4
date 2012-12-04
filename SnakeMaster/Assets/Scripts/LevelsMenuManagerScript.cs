@@ -46,7 +46,7 @@ public class LevelsMenuManagerScript : MonoBehaviour {
 			GUIContent content = new GUIContent("Level " + (i+1), starTexture);
 				
 			if(GUI.Button(new Rect(menuLeft, menuTop, 150, 180), content)) {
-			//	Application.LoadLevel(1);
+				Application.LoadLevel("Level"+(i+1));
 			}
 		}
 	}	

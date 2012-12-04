@@ -4,13 +4,14 @@ using System.Collections;
 public class InGameMenuScript : MonoBehaviour {
 	
 	public Font font;
-	public bool isActive = true;
+	public bool isActive = false;
 	
 	void Update(){
 		if(Input.GetKeyUp(KeyCode.P)) isActive = !isActive;
 	}	
 	
 	void OnGUI(){
+		print(isActive);
 		if(isActive) setMenu();
 	}
 
@@ -39,18 +40,18 @@ public class InGameMenuScript : MonoBehaviour {
 		int top = (Screen.height/2)-80;
 		int menumargin = 50;
 		
-		GUI.Box(new Rect(left-10, top-20, 280, 180), "");
+		GUI.Box(new Rect(left+20, top-50, 220, 250), "");
 		
 		if(GUI.Button(new Rect(left, top, 260, 40), "Resume", style)) {
 			isActive = false;
 		}
 		
-		if(GUI.Button(new Rect(left, top+menumargin, 260, 40), "Levels menu", style)) {
-			Application.LoadLevel(2);
+		if(GUI.Button(new Rect(left, top+menumargin, 260, 40), "Levels", style)) {
+			Application.LoadLevel("LevelsScene");
 		}
 
-		if(GUI.Button(new Rect(left, top+menumargin*2, 260, 40), "Quit", style)) {
-			Application.Quit();
+		if(GUI.Button(new Rect(left, top+menumargin*2, 260, 40), "Main menu", style)) {
+			Application.LoadLevel("SplashScene");
 		}		
 	}
 	
