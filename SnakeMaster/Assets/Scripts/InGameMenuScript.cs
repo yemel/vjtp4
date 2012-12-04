@@ -5,13 +5,17 @@ public class InGameMenuScript : MonoBehaviour {
 	
 	public Font font;
 	public bool isActive = false;
+	Texture2D frame;
+
+	void Start(){
+		frame = Resources.Load("frame_1") as Texture2D;
+	}	
 	
 	void Update(){
 		if(Input.GetKeyUp(KeyCode.P)) isActive = !isActive;
 	}	
 	
 	void OnGUI(){
-		print(isActive);
 		if(isActive) setMenu();
 	}
 
@@ -36,11 +40,14 @@ public class InGameMenuScript : MonoBehaviour {
 	
 	private void setMenu() {
 		var style = getSubtitleStyle(Color.yellow);
+		var boxStyle = new GUIStyle(GUI.skin.box);
+		boxStyle.normal.background = frame;
+		
 		int left = (Screen.width/2)-130;
 		int top = (Screen.height/2)-80;
 		int menumargin = 50;
 		
-		GUI.Box(new Rect(left+20, top-50, 220, 250), "");
+		GUI.Box(new Rect(left+10, top-80, 240, 300), "", boxStyle);
 		
 		if(GUI.Button(new Rect(left, top, 260, 40), "Resume", style)) {
 			isActive = false;
@@ -50,7 +57,7 @@ public class InGameMenuScript : MonoBehaviour {
 			Application.LoadLevel("LevelsScene");
 		}
 
-		if(GUI.Button(new Rect(left, top+menumargin*2, 260, 40), "Main menu", style)) {
+		if(GUI.Button(new Rect(left, top+menumargin*2, 260, 40), "Main", style)) {
 			Application.LoadLevel("SplashScene");
 		}		
 	}
