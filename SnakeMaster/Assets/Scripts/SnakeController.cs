@@ -2,7 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 public class SnakeController : MonoBehaviour {
-		
+	
+	private GameController gameController;
+	
 	// Rest of the body
 	public  GameObject body;
 	private BodyController bodyController;
@@ -13,15 +15,21 @@ public class SnakeController : MonoBehaviour {
 	
 	// Movement Variables
 	private float lastChange  = 0f;
-	public  float deltaChange = 0.5f;
+	private  float deltaChange = 0.2f;
 	
 	// Body Movement Variables
 	private static int maxPositions = 7;
 	private int currentPosition = 0;
 	Queue lastPositions = new Queue(maxPositions);
 	
+	
+	void Start(){
+		gameController = (GameController) GameObject.FindWithTag("GameController")
+			 			 			  			.GetComponent(typeof(GameController));
+	}
+	
 	// Update is called once per frame
-	void Update () {
+	void Update() {
 		SaveCurrentPosition(transform.position);
 		
 		// Move the Snake Head
@@ -32,14 +40,14 @@ public class SnakeController : MonoBehaviour {
 		GetBodyController().SetPosition(GetTailPosition());
 		
 		// Change Direction if necesary
-		if(Input.GetButton("Jump") && Mathf.Abs(Time.time - lastChange) > deltaChange){
+		if(Input.GetKeyDown(KeyCode.Space) && Mathf.Abs(Time.time - lastChange) > deltaChange){
 			lastChange = Time.time;
 			transform.parent.Translate(new Vector3(0,1,0) * 3 * currentDirection);
 			transform.Translate(new Vector3(0,-1,0) * 3 * currentDirection);
 			currentDirection *= -1;
 		}
 		
-		CheckScreenBoundaries(transform.position);
+		CheckScreenBoundaries();
 	}
 	
 	private void SaveCurrentPosition(Vector3 position){
@@ -57,10 +65,10 @@ public class SnakeController : MonoBehaviour {
        return bodyController;
     }
 	
-	int outOfScreen = 0;
-	void CheckScreenBoundaries(Vector3 pos){
+	int outOfScreen = 0; // Little Hack for short time of no visibility
+	void CheckScreenBoundaries(){
 		if(!renderer.isVisible){
-			if(outOfScreen++ > 5) ResetLevel();
+			if(outOfScreen++ > 5) gameController.ResetLevel();
 		}
 	}
 	
@@ -69,32 +77,16 @@ public class SnakeController : MonoBehaviour {
 		switch(tag){
 		case "Star":
 			Destroy(other.gameObject);
-			print ("hey star!"); break;
-		
-		case "Wall":
-			ResetLevel();
-			print ("hey wall!"); break;
+			gameController.CollectStar();
+			break;
 		
 		case "End":
-			ResetLevel();
-			print ("hey finish!!"); break;
+			gameController.LoadNextLevel();
+			break;
 			
-		case "Shuriken":
-			ResetLevel();
-			print ("hey shuriken"); break;
+		default:
+			gameController.ResetLevel();
+			break;
 		}
-	}
-	
-	void ResetLevel(){
-		Application.LoadLevel(Application.loadedLevel);
-	}
-	
-	public Rect BoundsToScreenRect(Bounds bounds){
-	    // Get mesh origin and farthest extent (this works best with simple convex meshes)
-	    Vector3 origin = Camera.main.WorldToScreenPoint(new Vector3(bounds.min.x, bounds.max.y, 0f));
-	    Vector3 extent = Camera.main.WorldToScreenPoint(new Vector3(bounds.max.x, bounds.min.y, 0f));
-	
-	    // Create rect in screen space and return - does not account for camera perspective
-	    return new Rect(origin.x, Screen.height - origin.y, extent.x - origin.x, origin.y - extent.y);
 	}
 }

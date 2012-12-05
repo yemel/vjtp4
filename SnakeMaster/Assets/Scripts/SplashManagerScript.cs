@@ -26,6 +26,7 @@ public class SplashManagerScript : MonoBehaviour {
 		int menumargin = 50;
 
 		if(GUI.Button(new Rect(left, top, 340, 40), "Start new game", style)) {
+			GameController.ResetPlayerStars();
 			Application.LoadLevel(1);
 		}
 		
