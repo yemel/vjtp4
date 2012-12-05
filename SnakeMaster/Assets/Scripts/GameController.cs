@@ -3,6 +3,8 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 	
+	private Font font;
+	
 	private static string levelPrefix  = "Level";
 	private static string starsPrefix  = "stars_level_";
 	
@@ -10,8 +12,27 @@ public class GameController : MonoBehaviour {
 	private static int[] unlockStars = {0, 1, 2, 3}; // Min Stars to Unlock Level
 	
 	public static bool HasEnoughStarts(int level){
-		int stars = PlayerPrefs.GetInt("stars_level_" + (level-1));
+		int stars = 0;
+		for(int i = 0; i < level; i++) {
+			stars += PlayerPrefs.GetInt("stars_level_" + (i));	
+		}
 		return stars >= unlockStars[level-1];
+	}
+	
+	public static int numLevels(){
+		return maxLevel;
+	}
+	
+	public static int totalLevelStars(int level) {
+		return unlockStars[level-1];
+	}
+	
+	public static int leftLevelStars(int level) {
+		int stars = 0;
+		for(int i = 0; i < level; i++) {
+			stars += PlayerPrefs.GetInt("stars_level_" + (i));
+		}
+		return stars;
 	}
 	
 	public static void ResetPlayerStars(){
@@ -49,4 +70,15 @@ public class GameController : MonoBehaviour {
 	public void CollectStar(){
 		starsCollected++;
 	}
+
+	void OnGUI(){
+		var style = new GUIStyle(GUI.skin.label);
+		style.font = font;
+		style.fontSize = 30;
+		GUI.Label(new Rect(20, 20, 240, 300), "Level "+currentLevel, style);
+	}
+	
+	void Start(){
+		font = Resources.Load("african") as Font;
+	}	
 }

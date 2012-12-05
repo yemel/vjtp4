@@ -16,13 +16,13 @@ public class SplashManagerScript : MonoBehaviour {
 
 	private void setTitle() {
 		var style = getTitleStyle(Color.white);
-		GUI.Label(new Rect((Screen.width/2)-300, 160, 600, 100), "Snake Master", style);
+		GUI.Label(new Rect((Screen.width/2)-300, Screen.height-430, 600, 100), "Snake Master", style);
 	}	
 	
 	private void setMenu() {
 		var style = getSubtitleStyle(Color.yellow);
 		int left = (Screen.width/2)-170;
-		int top = 300;
+		int top = Screen.height-320;
 		int menumargin = 50;
 
 		if(GUI.Button(new Rect(left, top, 340, 40), "Start new game", style)) {
