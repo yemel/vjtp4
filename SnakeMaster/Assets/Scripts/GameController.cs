@@ -8,8 +8,9 @@ public class GameController : MonoBehaviour {
 	private static string levelPrefix  = "Level";
 	private static string starsPrefix  = "stars_level_";
 	
-	private static int maxLevel = 4;
-	private static int[] unlockStars = {0, 1, 2, 3}; // Min Stars to Unlock Level
+	private static int maxLevel = 5;
+	private static int[] unlockStars = {0, 1, 2, 3, 5}; // Min Stars to Unlock Level
+	private static int[] levelStars = {1, 1, 1, 2, 3}; // Number of stars on each level
 	
 	public static bool HasEnoughStarts(int level){
 		int stars = 0;
@@ -25,6 +26,14 @@ public class GameController : MonoBehaviour {
 	
 	public static int totalLevelStars(int level) {
 		return unlockStars[level-1];
+	}
+	
+	public static int inMapLevelStars(int level) {
+		return levelStars[level-1];		
+	}
+	
+	public static int inMapPickedLevelStars(int level) {
+		return PlayerPrefs.GetInt("stars_level_" + (level));		
 	}
 	
 	public static int leftLevelStars(int level) {
