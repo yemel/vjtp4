@@ -12,7 +12,7 @@ public class InGameMenuScript : MonoBehaviour {
 	}	
 	
 	void Update(){
-		if(Input.GetKeyUp(KeyCode.P)) isActive = !isActive;
+		if(Input.GetKeyDown(KeyCode.P)) isActive = !isActive;
 	}	
 	
 	void OnGUI(){

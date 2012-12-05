@@ -16,7 +16,7 @@ public class SplashManagerScript : MonoBehaviour {
 
 	private void setTitle() {
 		var style = getTitleStyle(Color.white);
-		GUI.Label(new Rect((Screen.width/2)-300, 70, 600, 100), "Snake Master", style);
+		GUI.Label(new Rect((Screen.width/2)-300, 160, 600, 100), "Snake Master", style);
 	}	
 	
 	private void setMenu() {
@@ -45,7 +45,7 @@ public class SplashManagerScript : MonoBehaviour {
 	private GUIStyle getTitleStyle(Color color){
 		var style = new GUIStyle();
 		style.font = font;
-		style.fontSize = 60;
+		style.fontSize = 55;
 		style.normal.textColor = color;
 		style.alignment = TextAnchor.UpperCenter;
 		return style;
